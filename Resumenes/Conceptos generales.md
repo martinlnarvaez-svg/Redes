@@ -3,21 +3,21 @@
 	- El receptor va desencapsulando para por capa
 - En el destino se reciben los bits y con esos bits se rearma la trama
 - PDU de cada capa
-	Aplicacion: dato
-	Transporte (TCP): Segmento
-	Transporte (UDP): Datagrama
-	Red: Paquete
-	Enlace: Trama
+	-  Aplicacion: dato
+	- Transporte (TCP): Segmento
+	- Transporte (UDP): Datagrama
+	- Red: Paquete
+	- Enlace: Trama
 - Dispositivos de cada capa
-	Aplicacion: Computadoras/Servidores/Hosts
-	Transporte: -
-	Red: Routers
-	Enlace: Switches/Hubs/Bridges/Interfaces
+	- Aplicacion: Computadoras/Servidores/Hosts
+	- Transporte: -
+	- Red: Routers
+	- Enlace: Switches/Hubs/Bridges/Interfaces
 - Puertos por defecto
-	HTTP -> 80
-	HTTPS -> 443
-	SSH -> 22
-	DNS -> 23
-	SMTP -> 53
-	POP3 -> 110
-	IMAP: 143
+	- HTTP -> 80
+	- HTTPS -> 443
+	- SSH -> 22
+	- DNS -> 23
+	- SMTP -> 53
+	- POP3 -> 110
+	- IMAP: 143
