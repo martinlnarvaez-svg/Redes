@@ -11,20 +11,14 @@
 ## HTTP
 ### HTTP vs HTML
 - HTML es un lenguaje usado para estructurar paginas web mientras que HTTP es un protocolo para comunicar clientes con servidores
-			 - HTTP usa por defecto el puerto 80
-			 - HTTPS usa por defecto el puerto 443
-		- Requerimientos HTTP
-			Los requerimientos son pedidos que se hacen de un cliente a un servidor e incliyen el formato:
-			MetodoHTTP RecurosHTTP/VersionHTTP
-			Por ejemplo:
-			GET /hola/test.html HTTP/1.1
-		- Respuestas HTTP
-			Las respuestas son lo que el servidor le responde al cliente, y tienen el siguiente formato:
-			HTTP/Version CodDeRespuesta
-			Por ejemplo:
-			HTTP/1.1 200 OK
-		- Comando curl
-			Realiza peticiones de varios protocolos URL. Cuando el HTML de la URL tiene recursos externos, el navegador hara HTTP requests separados de forma transparente para traerlos y tiene los siguientes parametros:
+- HTTP usa por defecto el puerto 80
+- HTTPS usa por defecto el puerto 443
+- Requerimientos HTTP
+	- Los requerimientos son pedidos que se hacen de un cliente a un servidor e incluyen el formato: MetodoHTTP RecurosHTTP/VersionHTTP. Por ejemplo: GET /hola/test.html HTTP/1.1
+	- Respuestas HTTP
+		- Las respuestas son lo que el servidor le responde al cliente, y tienen el siguiente formato: HTTP/Version CodDeRespuesta. Por ejemplo: HTTP/1.1 200 OK
+	- Comando curl <br>
+		Realiza peticiones de varios protocolos URL. Cuando el HTML de la URL tiene recursos externos, el navegador hara HTTP requests separados de forma transparente para traerlos y tiene los siguientes parametros:
 			- -I: Realiza una solicitud HTTP usando el metodo HEAD, es decir no muestra el BODY, unicamente los HEADERS
 			- -H: Agregar headres personalizados al request del tipo clave:valor
 			-  -X: Permite especificar el metodo HTTP (GET, PUT POST, etc)
