@@ -18,52 +18,51 @@
 	- Respuestas HTTP
 		- Las respuestas son lo que el servidor le responde al cliente, y tienen el siguiente formato: HTTP/Version CodDeRespuesta. Por ejemplo: HTTP/1.1 200 OK
 	- Comando curl <br>
-		Realiza peticiones de varios protocolos URL. Cuando el HTML de la URL tiene recursos externos, el navegador hara HTTP requests separados de forma transparente para traerlos y tiene los siguientes parametros:
-			- -I: Realiza una solicitud HTTP usando el metodo HEAD, es decir no muestra el BODY, unicamente los HEADERS
-			- -H: Agregar headres personalizados al request del tipo clave:valor
-			-  -X: Permite especificar el metodo HTTP (GET, PUT POST, etc)
-			- -S: Silencia el progreso y no muestra mensajes de error
-			- -V: Muestra informacion detallada del request, headers de la respuesta, informacion de la conexion, etc
-		- Versiones de HTTP
-			1.0: Usa texto ASCII, tiene conexiones no persistentes, osea, por cada request se crea una nueva conexion TCP que se termina cuando el servidor contesta. 1 IP -> 1 dominio
-			1.1: Usa texto ASCII, tiene conexiones persistentes, osea, se pueden enviar muchos requests en una misma conexion TCP de forma secuencial. 1 IP -> N dominios
-			2.0: Usa binario (dificil de leer). Multiplexing, similar a 1.1 pero ademas los requests se realizan de forma concurrente. No hay que esperar a que uno haya terminado de enviarse para enviar el siguiente. 1 IP -> N dominios
+		Realiza peticiones de varios protocolos URL. Cuando el HTML de la URL tiene recursos externos, el navegador hara HTTP requests separados de forma transparente para traerlos y tiene los siguientes parametros: <br>
+		-I: Realiza una solicitud HTTP usando el metodo HEAD, es decir no muestra el BODY, unicamente los HEADERS <br>
+		-H: Agregar headres personalizados al request del tipo clave:valor <br>
+		-X: Permite especificar el metodo HTTP (GET, PUT POST, etc) <br>
+		-S: Silencia el progreso y no muestra mensajes de error <br>
+		-V: Muestra informacion detallada del request, headers de la respuesta, informacion de la conexion, etc
+	- Versiones de HTTP <br>
+		1.0: Usa texto ASCII, tiene conexiones no persistentes, osea, por cada request se crea una nueva conexion TCP que se termina cuando el servidor contesta. 1 IP -> 1 dominio <br>
+		1.1: Usa texto ASCII, tiene conexiones persistentes, osea, se pueden enviar muchos requests en una misma conexion TCP de forma secuencial. 1 IP -> N dominios <br>
+		2.0: Usa binario (dificil de leer). Multiplexing, similar a 1.1 pero ademas los requests se realizan de forma concurrente. No hay que esperar a que uno haya terminado de enviarse para enviar el siguiente. 1 IP -> N dominios
 
-			Como saber si se trata de HTTP 1.0 o 1.1?
-			 En HTTP 1.0 puede usarse la cabecera HOST pero es poco comun, mientras que en HTTP 1.1 siempre se usa esta cabecera.
-			 En HTTP 1.0 la cabecera Connection tiene por defecto el valor close, mientras que e HTTP 1.1 tiene por defecto el valor keep-alive
-		- Codigos HTTP
-			Valores que se envian en una respuesta HTTP que representan lo que ocurrio con el requerimiento, si fue exitoso, si fallo por alguna razon, etc
-			1XX: Informacion de estado
-			2XX: Exito
-			3XX: Redireccion
-			4XX: Error de cliente
-			5XX Error del servidor
-		- Headers HTTP
-			Son datos con el formato clave:valor que se intercambian en los requerimientos y respuestas HTTP
-			Accept: application/jason/text/html -> Tipos de datos que el cliente espera como respuesta
-			Content-Type: application/json -> Tipos de datos que se enviaron
-			Authorization: Bearer -> Credenciales de autenticacion que envia el cliente
-			User-Agent: curl/7.88.1 -> Datos del cliente que realizo el request
-			Location: https://abc.com/index.php -> Indica la nueva URL a la que el cliente deberia redireccionarse
-			Server: Apache2 -> Datos del servidor
-			Content-Lenght -> Tamaño de la respuesta en bytes
-			Host: www.abc.com -> Especifica el dominio e interes, para evitar ambiguedades. Muy util cuando un dominio tiene alojados mas de 1 sitio
-			Date -> Indica fecha, hora y timezone en que se envio la respuesta
-			Last- Modified: Indica fecha, hora y timezone de la ultima vez que se modifico (en el servidor) el recurso solicitado
-			If- Modified-Since -> el servidor retorna el recurso solicitado SOLO si fue modificado DESPUES de la fecha ingresada
-			Set-Cookie -> El servidor envia una cookie al cliente
-			Cookie -> El cliente le envia una cookie al servidor
-		- GET vs POST
-			La diferencia principal es que el GET envia los datos ingresados en el formulario a traves de la URL via querys (?clave=valor) mientras que el POST envia los datos ingresados en el body del request, por ende es mas seguro
-			
-			Otras diferencias:
-			- Los POST no se cachean, los GET pueden cachearse
-			- Los POST no permanecen en el historial del browser, los GET si
-			- Los POST no tienen limites de longitud en cuanto a los datos a enviar, los GET si, ya que las URLs (donde los queary parameters se colocan) tienen limites de longitud
-		- SSH
-			Permite ejecutar una conexion remota con un servidor y ejecutar comandos. La data va cifrada
-			Por defecto usa el puerto 22
+	- Como saber si se trata de HTTP 1.0 o 1.1? <br>
+		En HTTP 1.0 puede usarse la cabecera HOST pero es poco comun, mientras que en HTTP 1.1 siempre se usa esta cabecera. <br>
+		En HTTP 1.0 la cabecera Connection tiene por defecto el valor close, mientras que e HTTP 1.1 tiene por defecto el valor keep-alive
+	- Codigos HTTP <br>
+		Valores que se envian en una respuesta HTTP que representan lo que ocurrio con el requerimiento, si fue exitoso, si fallo por alguna razon, etc <br>
+		1XX: Informacion de estado <br>
+		2XX: Exito <br>
+		3XX: Redireccion <br>
+		4XX: Error de cliente <br>
+		5XX Error del servidor
+	- Headers HTTP <br>
+		Son datos con el formato clave:valor que se intercambian en los requerimientos y respuestas HTTP <br>
+		Accept: application/jason/text/html -> Tipos de datos que el cliente espera como respuesta <br>
+		Content-Type: application/json -> Tipos de datos que se enviaron <br>
+		Authorization: Bearer -> Credenciales de autenticacion que envia el cliente <br>
+		User-Agent: curl/7.88.1 -> Datos del cliente que realizo el request <br>
+		Location: https://abc.com/index.php -> Indica la nueva URL a la que el cliente deberia redireccionarse <br>
+		Server: Apache2 -> Datos del servidor <br>
+		Content-Lenght -> Tamaño de la respuesta en bytes <br>
+		Host: www.abc.com -> Especifica el dominio e interes, para evitar ambiguedades. Muy util cuando un dominio tiene alojados mas de 1 sitio <br>
+		Date -> Indica fecha, hora y timezone en que se envio la respuesta <br>
+		Last- Modified: Indica fecha, hora y timezone de la ultima vez que se modifico (en el servidor) el recurso solicitado <br>
+		If- Modified-Since -> el servidor retorna el recurso solicitado SOLO si fue modificado DESPUES de la fecha ingresada <br>
+		Set-Cookie -> El servidor envia una cookie al cliente <br>
+		Cookie -> El cliente le envia una cookie al servidor
+	- GET vs POST <br>
+		La diferencia principal es que el GET envia los datos ingresados en el formulario a traves de la URL via querys (?clave=valor) mientras que el POST envia los datos ingresados en el body del request, por ende es mas seguro <br>
+				
+		Otras diferencias:
+		- Los POST no se cachean, los GET pueden cachearse
+		- Los POST no permanecen en el historial del browser, los GET si
+		- Los POST no tienen limites de longitud en cuanto a los datos a enviar, los GET si, ya que las URLs (donde los queary parameters se colocan) tienen limites de longitud
+	- SSH <br>
+		Permite ejecutar una conexion remota con un servidor y ejecutar comandos. La data va cifrada. Por defecto usa el puerto 22
 	- DNS
 		DNS es un protocolo que traduce nombre de dominio a direcciones IP, que son identificadores numericos separados por puntos. La idea es que no tengamos que buscar sitios web mediante su IP, sino por sus nombre y que el DNS los traduzca.
 		Por defecto usa el purto 53
