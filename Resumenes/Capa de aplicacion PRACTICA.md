@@ -1,4 +1,4 @@
-##Definiciones 
+**Definiciones 
 - Una *red* es un conjunto de dispositivos interconectados a traves de distintos medios con el principal objetivo de transmitir informacion y compartir recursos y/o servicios
 - Un *protocolo* es un conjunto de reglas que define el formato y orden de los mensajes que se intercambian y las acciones que se llevan a cabo en la transmision y/o recepcion de un mensaje u otro evento
 - Un *PDU* (Protocol Data Unit) es el tipo de dato que utiliza cada capa
