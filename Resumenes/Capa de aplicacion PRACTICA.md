@@ -34,11 +34,11 @@
 		En HTTP 1.0 la cabecera Connection tiene por defecto el valor close, mientras que e HTTP 1.1 tiene por defecto el valor keep-alive
 	- Codigos HTTP <br>
 		Valores que se envian en una respuesta HTTP que representan lo que ocurrio con el requerimiento, si fue exitoso, si fallo por alguna razon, etc <br>
-		1XX: Informacion de estado <br>
-		2XX: Exito <br>
-		3XX: Redireccion <br>
-		4XX: Error de cliente <br>
-		5XX Error del servidor
+		**1XX**: Informacion de estado <br>
+		**2XX**: Exito <br>
+		**3XX**: Redireccion <br>
+		**4XX**: Error de cliente <br>
+		**5XX** Error del servidor
 	- Headers HTTP <br>
 		Son datos con el formato clave:valor que se intercambian en los requerimientos y respuestas HTTP <br>
 		Accept: application/jason/text/html -> Tipos de datos que el cliente espera como respuesta <br>
@@ -63,65 +63,62 @@
 		- Los POST no tienen limites de longitud en cuanto a los datos a enviar, los GET si, ya que las URLs (donde los queary parameters se colocan) tienen limites de longitud
 	- SSH <br>
 		Permite ejecutar una conexion remota con un servidor y ejecutar comandos. La data va cifrada. Por defecto usa el puerto 22
-	- DNS
-		DNS es un protocolo que traduce nombre de dominio a direcciones IP, que son identificadores numericos separados por puntos. La idea es que no tengamos que buscar sitios web mediante su IP, sino por sus nombre y que el DNS los traduzca.
-		Por defecto usa el purto 53
-		Usa UDP
-		Ademas de ser un protocolo, tambien es un sistema distribuido de forma jerarquica por todo el mundo
-		
-		- Root servers
-			Son servidores DNS que estan al principio de la jerarquia de servidores DNS, son los primeros que los resolvers consultan y tienen informacion de los Top Levels Domains
-		- Top Levels Domains
-			Se dividen en 2 tipos: Generic y Country Code
-			- Generic: Indican el proposito general de la pagina. ".com", ".org", etc
-			- Country Code: indican de que pais es el dominio. ".arg", ".es", etc
-		- Servidores autoritativos
-			Son aquellos que poseen informacion original, actualizada y oficial de los registros DNS de un dominio, los caches de servidores no autoritativos pueden tener informacion desactualizada de un dominio, y pueden tardar bastante en actualizarse. Se dividen en 1 primario y N-1 secundarios. El primario copia su informacion a los secundarios regularmente, esto se conoce como transferencia de zona
-		- Resolver
-			Es un componente de software integrado en el SO que resuelve todas las consultas DNS. Se comunica con otros servidores DNS via internet y cuando recibe una consulta, primero chequea su cache. Si no encuentra lo pedido ahi, realiza un consulta al servidor de DNS configurado como local
-		- Consultas DNS recursivas vs iterativas
-			Las consultas recursivas son aquellas que el resolver resuelve por completo una vez que el cliente le realiza una solicitud. Si el resolver tiene la respuesta en su cache la devuelve al cliente rapidaente. SI no, va preguntando recusivamente servidor por servidor segun lo que le responden hasta traer la respuesta autoritativa.
-			- Cuando un cliente quiere saber una IP, le realiza una consulta recursiva a su resolver local
-			Las consultas iterativas son aquellas donde el resolver le da al cliente una respuesta segun lo que tiene en su cache. Si su cache esta vacia, devuelve una referencia a otro servidor DNS. El cliente es responsable por ende de hacer las subsecuentes querys segun la referencia que el resolver le devolvio
-			- Cuando el resolver local necesita saber una IP, realiza consultas iterativas empezando por los root servers
-			Si esta en cache o esta en el servidor autoritativo entonces la respuesta no es recursiva, es iterativa
-		- Respuestas DNS autoritativas vs no autoritativas
-			Las respuestas autoritativas son las que retornan efectivamente la direccion IP del dominio solicitado, y esta respuesta proviene del servidor autoritativo de ese dominio, y si no, de algun otro servidor que aun posea la IP en su cache. Las respuestas no autoritativas provienen de servidores DNS que no son autoritativos
-		- Delegacion de dominios
-			Cuando tenemos subdominios como "example.com" - "test.example.com" hay que delegar, test.example.com tendra sus propios servidores autoritativos separados de los de example.com.
-			Se crean registros NS en el servidor autoritativo de example.com que apuntan a los servidores autoritativos de test.example.com.
-			En el servidor autoritativo para el dominio example.com tenemos:
-			test.example.com IN NS ns1.test.example.com
-			ns1.test.example.com IN A 192.168.1.0
-		- Flags DNS
-			aa: authoritative answer
-			rd: recursion desired
-			ra: recursion accepted
-			qr: query/response
-		- Codigos de respuesta DNS
-			NOERROR: La query fue exitosa (el dominio existe) pero el registro solicitado puede no existir
-			NXDOMAIN: El dominio solicitado no existe
-			SERVFAIL: Hay un problema tecnico con los servidores DNS. Podria ser un firewall
-			REFUSED: El servidor rechazo la consulta por motivos de seguridad o falta de autorizacion
-		- Registros DNS
-			A: Mapea un nombre de dominio a una direccion IPv4
-			AAAA: Idem A pero a IPv6
-			PTR: Mapea una direccion IPv4 a un nombre de dominio
-			MX: servidores de email responsables de recibir emails (no enviar) para un nombre de dominio. Cuanto mas bajo el valor, mas prioridad tiene el MX
-			TXT: Informacion de nombre de dominio
-			SRV: Servicios disponibles para un nombre de dominio
-			NS: Servidores autoritativos para un nombre de dominio
-			CNAME: Alias de un nombre de dominio
-			SOA: Informacion administrativa de una zona DNS. Sirve para configurar y sincronizar a los servers DNS secundarios. Muestra, entre otras cosas, cual de los servidores autoritativos es el primario
-	- SMTP
-		Simple Mail Transfer Protocol es un protocolo que se usa cuando un cliente envia un email a su mail server y tambien cuando un servidor de mail le manda un email a otro servidor de mail. Esto es porque SMTP puede actuar como cliente o servidor. Por defecto usa el purto 25 y usa TCP
-		- Pop3
-			Protocolo simple, cuando el usuario quiere acceder a sus emails los descarga y estos se borran del servidor, no guarda estado, por ende es eficiente. Al no soportar estado no permite la sincronizacion a traves de multiples dispositivos. Por defecto usa el puerto 110 y TCP
-		- IMAP
-			Protocolo mas complejo que permite al usuario leer, borrar, y organizar sus emails en carpetas como si fuera un filesystem, guarda estado. Al guardar el estado se puede sincronizar a traves de multiples dispositivos. Usa el puerto 143 y usa TCP
-		- Encoding de imagenes
-			Tanto SMTP como POP3 e IMAP necesitan encodificar las imagenes para transformarlas a texto al enviar o recibir un email que las contenga, ya que trabajan unicamente con contenido de texto plano
-		- FTP
-			Protocolo que permite transferir archivos, necesita 2 conexiones TCP, una de control y otra de datos. Tiene 2 modos, activo y pasivo, que difieren en como se maneja la conexion de datos.
-			Activo: El cliente abre uno de sus puertos para la conexion de datos, y el servidor se conecta al cliente, puede ser inseguro, puede generar problemas de firewall/NAT y no se suele usar hoy en dia.
-			Pasivo: El servidor abre uno de sus puertos para la conexion de datos, y el cliente se conecta al servidor, suele ser seguro, no suele causar problemas de firewall/NAT y es el mas usado actualmente
+## DNS 
+DNS es un protocolo que traduce nombre de dominio a direcciones IP, que son identificadores numericos separados por puntos. La idea es que no tengamos que buscar sitios web mediante su IP, sino por sus nombre y que el DNS los traduzca. Por defecto usa el purto 53 usa UDP <br>
+Ademas de ser un protocolo, tambien es un sistema distribuido de forma jerarquica por todo el mundo
+- Root servers <br>
+	Son servidores DNS que estan al principio de la jerarquia de servidores DNS, son los primeros que los resolvers consultan y tienen informacion de los Top Levels Domains
+- Top Levels Domains <br>
+	Se dividen en 2 tipos: Generic y Country Code <br>
+		Generic: Indican el proposito general de la pagina. ".com", ".org", etc <br>
+		Country Code: indican de que pais es el dominio. ".arg", ".es", etc
+- Servidores autoritativos <br>
+	Son aquellos que poseen informacion original, actualizada y oficial de los registros DNS de un dominio, los caches de servidores no autoritativos pueden tener informacion desactualizada de un dominio, y pueden tardar bastante en actualizarse. Se dividen en 1 primario y N-1 secundarios. El primario copia su informacion a los secundarios regularmente, esto se conoce como transferencia de zona
+- Resolver <br>
+	Es un componente de software integrado en el SO que resuelve todas las consultas DNS. Se comunica con otros servidores DNS via internet y cuando recibe una consulta, primero chequea su cache. Si no encuentra lo pedido ahi, realiza un consulta al servidor de DNS configurado como local
+- Consultas DNS recursivas vs iterativas <br>
+	Las consultas recursivas son aquellas que el resolver resuelve por completo una vez que el cliente le realiza una solicitud. Si el resolver tiene la respuesta en su cache la devuelve al cliente rapidaente. SI no, va preguntando recusivamente servidor por servidor segun lo que le responden hasta traer la respuesta autoritativa. <br>
+	Cuando un cliente quiere saber una IP, le realiza una consulta recursiva a su resolver local <br>
+	Las consultas iterativas son aquellas donde el resolver le da al cliente una respuesta segun lo que tiene en su cache. Si su cache esta vacia, devuelve una referencia a otro servidor DNS. El cliente es responsable por ende de hacer las subsecuentes querys segun la referencia que el resolver le devolvio <br>
+	Cuando el resolver local necesita saber una IP, realiza consultas iterativas empezando por los root servers <br>
+	Si esta en cache o esta en el servidor autoritativo entonces la respuesta no es recursiva, es iterativa
+- Respuestas DNS autoritativas vs no autoritativas <br>
+	Las respuestas autoritativas son las que retornan efectivamente la direccion IP del dominio solicitado, y esta respuesta proviene del servidor autoritativo de ese dominio, y si no, de algun otro servidor que aun posea la IP en su cache. Las respuestas no autoritativas provienen de servidores DNS que no son autoritativos
+- Delegacion de dominios <br>
+	Cuando tenemos subdominios como "example.com" - "test.example.com" hay que delegar, test.example.com tendra sus propios servidores autoritativos separados de los de example.com. <br>
+	Se crean registros NS en el servidor autoritativo de example.com que apuntan a los servidores autoritativos de test.example.com. <br>
+	En el servidor autoritativo para el dominio example.com tenemos: <br>
+		test.example.com IN NS ns1.test.example.com<br>
+		ns1.test.example.com IN A 192.168.1.0
+-  Flags DNS<br>
+	**aa**: authoritative answer<br>
+	**rd**: recursion desired<br>
+	**ra**: recursion accepted<br>
+	**qr**: query/response
+- Codigos de respuesta DNS<br>
+	**NOERROR**: La query fue exitosa (el dominio existe) pero el registro solicitado puede no existir<br>
+	**NXDOMAIN**: El dominio solicitado no existe<br>
+	**SERVFAIL**: Hay un problema tecnico con los servidores DNS. Podria ser un firewall<br>
+	**REFUSED**: El servidor rechazo la consulta por motivos de seguridad o falta de autorizacion
+- Registros DNS <br>
+	**A**: Mapea un nombre de dominio a una direccion IPv4<br>
+	**AAAA**: Idem A pero a IPv6<br>
+	**PTR**: Mapea una direccion IPv4 a un nombre de dominio<br>
+	**MX**: servidores de email responsables de recibir emails (no enviar) para un nombre de dominio. Cuanto mas bajo el valor, mas prioridad tiene el MX<br>
+	**TXT**: Informacion de nombre de dominio<br>
+	**SRV**: Servicios disponibles para un nombre de dominio<br>
+	**NS**: Servidores autoritativos para un nombre de dominio<br>
+	**CNAME**: Alias de un nombre de dominio<br>
+	**SOA**: Informacion administrativa de una zona DNS. Sirve para configurar y sincronizar a los servers DNS secundarios. Muestra, entre otras cosas, cual de los servidores autoritativos es el primario
+## SMTP <br>
+Simple Mail Transfer Protocol es un protocolo que se usa cuando un cliente envia un email a su mail server y tambien cuando un servidor de mail le manda un email a otro servidor de mail. Esto es porque SMTP puede actuar como cliente o servidor. Por defecto usa el purto 25 y usa TCP<br>
+- Pop3<br>
+	Protocolo simple, cuando el usuario quiere acceder a sus emails los descarga y estos se borran del servidor, no guarda estado, por ende es eficiente. Al no soportar estado no permite la sincronizacion a traves de multiples dispositivos. Por defecto usa el puerto 110 y TCP<br>
+- IMAP<br>
+	Protocolo mas complejo que permite al usuario leer, borrar, y organizar sus emails en carpetas como si fuera un filesystem, guarda estado. Al guardar el estado se puede sincronizar a traves de multiples dispositivos. Usa el puerto 143 y usa TCP
+- Encoding de imagenes<br>
+	Tanto SMTP como POP3 e IMAP necesitan encodificar las imagenes para transformarlas a texto al enviar o recibir un email que las contenga, ya que trabajan unicamente con contenido de texto plano <br>
+- FTP 
+	Protocolo que permite transferir archivos, necesita 2 conexiones TCP, una de control y otra de datos. Tiene 2 modos, activo y pasivo, que difieren en como se maneja la conexion de datos.<br>
+	Activo: El cliente abre uno de sus puertos para la conexion de datos, y el servidor se conecta al cliente, puede ser inseguro, puede generar problemas de firewall/NAT y no se suele usar hoy en dia.<br>
+	Pasivo: El servidor abre uno de sus puertos para la conexion de datos, y el cliente se conecta al servidor, suele ser seguro, no suele causar problemas de firewall/NAT y es el mas usado actualmente
